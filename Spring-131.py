@@ -17,7 +17,7 @@ class compression:
                 print(self.name)
 
                 if namez!="c" and namez!="e":
-                    print("Your enter incorrect letter")
+                    print("Your enter the incorrect letter")
                 
                 if namez=="c":
 
