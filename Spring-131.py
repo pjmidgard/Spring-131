@@ -116,13 +116,12 @@ class compression:
                         lenf1=len(data)
                         Divide=lenf1%2
                         File_size_Divide=0
-                        if lenf1<=336000 or F==1:
-                            Limit_size_of_file=1
                         
-                        elif lenf1>336000 and Divide==0:
+                        
+                        if Divide==0:
                             Limit_size_of_file=0
                             File_size_Divide=0
-                        elif lenf1>336000 and Divide!=0:
+                        elif Divide!=0:
                             Limit_size_of_file=0
                             File_size_Divide=1    
                     
@@ -429,18 +428,14 @@ class compression:
                                     size_data11=add_bits118+size_data11
                                     
                                     
-                                    if Limit_size_of_file==1:
-                                        size_data11="00000000"+size_data_not_compress
-
-                                    else:
+                                  
                                           
-                                        if File_size_Divide==0 and Check_equal!=1:
+                                    if File_size_Divide==0 and Check_equal!=1:
                                         	size_data11="11111111"+size_data11
-                                        elif File_size_Divide==1 and Check_equal!=1:
+                                    elif File_size_Divide==1 and Check_equal!=1:
                                          	size_data11="11111110"+size_data11+Size14
                                         
-                                        elif Check_equal==1:
-                                            size_data11="00000001"+size_data_not_compress
+                                    
                                             
                                             
                                 
@@ -665,12 +660,10 @@ class compression:
 
                                     
 
-                                    if size_data3[0:8]=="00000000":
-                                        size_data12=size_data3[8:]
-                                        Limit=1
+                                    
 
                                     
-                                    elif size_data3[0:8]=="11111111":
+                                    if size_data3[0:8]=="11111111":
                                         size_data3=size_data3[8:]
                                     elif size_data3[0:8]=="11111110":
                                         size_data3=size_data3[8:]
@@ -910,7 +903,6 @@ class compression:
 
                                     size_data3=size_data9
                                     
-
 
                                     if Limit==1:
                                         size_data3=size_data12
