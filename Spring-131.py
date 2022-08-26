@@ -17,7 +17,7 @@ class compression:
                 print(self.name)
 
                 if namez!="c" and namez!="e":
-                    print("Your enter the incorrect letter")
+                    print("Your enter incorrect letter")
                 
                 if namez=="c":
 
@@ -911,24 +911,6 @@ class compression:
                                     size_data3=size_data9
                                     
 
-                                       
-                                    
-                                        
-                                     
-                                    lenf=len(size_data3)
-                                        
-                                    add_bits118=""
-                                    count_bits=8-lenf%8
-                                    z=0
-                                   
-                                   
-                                    if count_bits!=8:
-                                               while z<count_bits:
-                                                   add_bits118="0"+add_bits118
-                                                   z=z+1
-                                                                    
-                                                                    
-                                    size_data3=add_bits118+size_data3
 
                                     if Limit==1:
                                         size_data3=size_data12
