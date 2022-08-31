@@ -52,7 +52,7 @@ class compression:
                     
                    
                     
-                    Deep_long=8000
+                    Deep_long=240
                     Deep_long_All=Deep_long*16
                     block_size_long=16
                     Times_compression=1
@@ -100,7 +100,7 @@ class compression:
                         data1=data
                         size_after2=len(data)
                         #print(size_after2)
-                        if len(data)==0 or len(data)>=2**40:
+                        if len(data)==0:
                             x4=0.0
                             print(x4)
                             raise SystemExit
@@ -195,7 +195,7 @@ class compression:
                                 lenf2=len(size_data2)
 
                                 
-                                Check_equal=0    
+                                    
                                 
                                 size_data3=size_data2
                                 if File_size_Divide==1:
@@ -247,25 +247,19 @@ class compression:
                                     Times6=0
                                     
                                    
-                                    predict=-1
-                                    predict2=-1
-                                    Times_count_compress=0
+                                    
                                   
                                     
                                     Find_guess=0
-                                    
+                                    while Find_guess!=1:
                                         
-                                    while  Find_guess!=1:
+                                        while  times_of_times!=Times_compression:
 
 
                                                     
                                                    
                                                     long_block=block_size_long
                                                     long2=len(size_data3)
-                                                    Stop_M2=0
-                                                    Stop_M=0
-                                                    Stop_M=long2//4
-                                                    Times_M=0
                                                     
                                                     blocks=long_block
                                                     size_compress=63
@@ -273,52 +267,140 @@ class compression:
                                                     
                                                      
                                                     block=0
-                                                    predict=predict+1
-                                                    predict2=predict2+1
 
-                                                    M=4
-
-                                                    b=format(predict,'04b')
-
-                                                    b1=format(predict2,'05b')
+                                                    #b=format(predict,'04b')
+                                                    #predict=predict+1
+                                                    #if predict==16:
+                                                        #predict=0
                                                     
-                                                    if predict==16:
-                                                        predict=0
-                                                    if predict2==32:
-                                                        predict2=0
-                                                        
                                                     long=len(size_data3)
                                                     Times6=0
                                                     #print(long)
-
-                                                    while Stop_M2<1:
-                                                        if size_data3[0:M]==b:
-                                                            size_data3=size_data3[M:]+size_data3[:M]
-                                                        Times_M=Times_M+1
-
-                                                        if Times_M>=Stop_M:
-                                                            Stop_M2=1
-                                                        if size_data3[0:M]!=b:
-                                                            Stop_M2=2
                                                     
-                                                        
-                                                    if Stop_M2==2 or Stop_M2==0:
-                                                      if size_data3[long2-5:]==b1 and size_data3[0:M]!=b:
-                                                            size_data3=size_data3[long2-5:]+size_data3[:long2-5]
-                                                            size_data3=size_data3[1:]
+                                                    while block<long:
 
-                                                      elif size_data3[long2-5:]!=b1 and size_data3[0:M]!=b:
-                                                          size_data3=size_data3[long2-5:]+size_data3[:long2-5]
-                                                      Stop_M2=0    
-                                                      
-                                                    Times_count_compress=Times_count_compress+1
-                                                    #print(long2)
+                                                                                Times6=Times6+1
+                                                                                Zeroes=size_data3[block:block+blocks]
+                                                                                size_of_block=len(Zeroes)
+                                                                                #print(size_of_block)
+
+                                                                                Zeroes_number=int(Zeroes,2)
+
+                                                                                
+
+                                                                                size_data24=bin(Zeroes_number)[2:]
+                                                                                
+                                                                                lenf=len(size_data24)
+                                                                                if lenf>long_block:
+                                                                                    print("File too big")
+                                                                                    raise SystemExit
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                    
+                                                                                add_bits118=""
+                                                                                count_bits=long_block-lenf%long_block
+                                                                                z=0
+                                                                                
+                                                                                if count_bits!=long_block:
+                                                                                        while z<count_bits:
+                                                                                            add_bits118="0"+add_bits118
+                                                                                            z=z+1
+                                                                                                                                                                
+                                                                                MAX_zeroes=bin(long_block-1)[2:]
+                                                                                Size_max_zeroes=len(MAX_zeroes)
+                                                                                
+                                                                                lenf=len(add_bits118)
+                                                                                size_data26=bin(lenf-1)[2:]
+                                                                                lenf=len(size_data26)
+                                                                                if lenf>Size_max_zeroes:
+                                                                                    print("File too big")
+                                                                                    raise SystemExit
+                                                                                                                                        
+                                                                                                                                        
+                                                                                                                                    
+                                                                                add_bits118=""
+                                                                                count_bits=Size_max_zeroes-lenf%Size_max_zeroes
+                                                                                z=0
+                                                                               
+                                                                                if count_bits!=Size_max_zeroes:
+                                                                                        while z<count_bits:
+                                                                                            add_bits118="0"+add_bits118
+                                                                                            z=z+1
+                                                                                                                                                                
+                                                                                                                                                                            
+                                                                                size_data7=add_bits118+size_data26+size_data24
+                                                                                
+
+                                                                                size_after_block=len(size_data7)
+                                                                                #print(size_after_block)
+
+
+                                                                                if Times6>Deep_long or size_of_block!=long_block and Times6>Deep_long:
+                                                                                    size_data4=Zeroes
+                                                                                    
+                                                                                elif size_of_block<=size_after_block+1 and Times6<=Deep_long and size_of_block==long_block and Zeroes[0:2]=="11":
+                                                                                    size_data4="1"+"0"+Zeroes[2:]
+
+                                                                                elif size_of_block<=size_after_block+1 and Times6<=Deep_long and size_of_block==long_block and Zeroes[0:2]=="10":
+                                                                                    size_data4="0"+"1"+Zeroes[2:]
+                                                                                    
+                                                                                elif size_of_block<=size_after_block+1 and Times6<=Deep_long and size_of_block==long_block and Zeroes[0:2]=="01":
+                                                                                    size_data4="0"+Zeroes
+
+                                                                                elif size_of_block<=size_after_block+1 and Times6<=Deep_long and size_of_block==long_block and Zeroes[0:2]=="00": 
+                                                                                    size_data4="0"+Zeroes
+
+                                                                                elif size_of_block>size_after_block+1 and Times6<=Deep_long and size_of_block==long_block and Zeroes[0:2]=="00" and size_data7[0:1]=="0":
+                                                                                    size_data4="0"+Zeroes
+                                                                                    #print(size_data4)
+                                                                                    
+                                                                                elif size_of_block>size_after_block+1 and Times6<=Deep_long and size_of_block==long_block and Zeroes[0:2]=="00" and size_data7[0:1]=="1":
+                                                                                    size_data4="1"+size_data7
+                                                                                    #print(size_data7)
+                                                                                    
+                                                                                
+                                                                                size_data6=size_data6+size_data4       
+                                                                                block=block+blocks
+                                                                                #print(block)
+                                                         
+                                                    times_compression=times_compression+1
                                                     
-                                       
-                                                    if long2<=40 or Stop_M2==1 or Times_count_compress>(2**127)-2:
+                                                    #print(times_compression)
+                                                    
+                                                    
+                                                    size_data3=size_data6
+                                                    
+                                                    Where4=0
+                                                    
+                                                    
+                                                    #print(len(size_data6))
+                                                    size_data6=""
+                                                    times_of_times=times_of_times+1
+                                                    
+                                        long_after=len(size_data3)
+                                        long2=len(size_data3)
+
+                                        
+                                        size_data9=size_data3
+                                        
                                            
-                                                        size_data11=size_data3
-                                                        Find_guess=1
+
+                                        
+                                        
+                                        Check_equal=0
+
+                                        
+                                            
+                                        
+                                        
+                                        long_file=len(size_data10)
+                                        long_after=len(size_data9)
+                                        #print(long_after) 
+                                       
+                                        if long_file>long_after or long_block<=long_after:
+                                           
+                                            size_data11=size_data9
+                                            Find_guess=1
 
                                     
                                             
@@ -344,83 +426,23 @@ class compression:
                                                                     
                                                                     
                                     size_data11=add_bits118+size_data11
-                                    long_block=127
-                                    T=1
-                                    if T==1:
                                     
                                     
                                   
                                           
-														                                   
-														                                                                                
-														                                                                                
-														                                                                                size_data24=bin(Times_count_compress)[2:]
-														                                                                                lenf=len(size_data24)
-														                                                                                if lenf>long_block:
-														                                                                                    print("File too big")
-														                                                                                    raise SystemExit
-														                                                                                                                                        
-														                                                                                                                                        
-														                                                                                                                                    
-														                                                                                add_bits118=""
-														                                                                                count_bits=long_block-lenf%long_block
-														                                                                                z=0
-														                                                                                
-														                                                                                if count_bits!=long_block:
-														                                                                                        while z<count_bits:
-														                                                                                            add_bits118="0"+add_bits118
-														                                                                                            z=z+1
-														                                                                                                                                                                
-														                                                                                MAX_zeroes=bin(long_block)[2:]
-														                                                                                Size_max_zeroes=len(MAX_zeroes)
-														                                                                                
-														                                                                                lenf=len(add_bits118)
-														                                                                                size_data26=bin(lenf)[2:]
-														                                                                                lenf=len(size_data26)
-														                                                                                if lenf>Size_max_zeroes:
-														                                                                                    print("File too big")
-														                                                                                    raise SystemExit
-														                                                                                                                                        
-														                                                                                                                                        
-														                                                                                                                                    
-														                                                                                add_bits118=""
-														                                                                                count_bits=Size_max_zeroes-lenf%Size_max_zeroes
-														                                                                                z=0
-														                                                                               
-														                                                                                if count_bits!=Size_max_zeroes:
-														                                                                                        while z<count_bits:
-														                                                                                            add_bits118="0"+add_bits118
-														                                                                                            z=z+1
-														                                                                                                                                                                
-														                                                                                                                                                                            
-														                                                                                size_data7=add_bits118+size_data26+size_data24
-												                                                                                 
-                                                                                
-                                    
-                                
-                                  
-                                    b2=size_data7  
-                                    #print(size_data26)
-                                    size_data11=b2+size_data11
-                                    
-                                    size_data11="1"+size_data11
-                                    
-                                    
-                           
-                                    lenf=len(size_data11)
+                                    if File_size_Divide==0 and Check_equal!=1:
+                                        	size_data11="11111111"+size_data11
+                                    elif File_size_Divide==1 and Check_equal!=1:
+                                         	size_data11="11111110"+size_data11+Size14
                                         
-                                    add_bits118=""
-                                    count_bits=8-lenf%8
-                                    z=0
                                     
-                                    if count_bits!=8:
-                                                while z<count_bits:
-                                                    add_bits118="0"+add_bits118
-                                                    z=z+1
-                                                                    
-                                                                    
-                                    size_data11=add_bits118+size_data11
+                                            
+                                            
+                                
+                                    
                                  
+                                    
+                                    
                                     n = int(size_data11, 2)
                                 
                                     qqwslenf=len(size_data11)
@@ -430,8 +452,21 @@ class compression:
                              
                                     jl=binascii.unhexlify(qqwslenf % n)
                                     
+                                    
+                                    data2=jl
+                                    
                                     size_after=len(jl)
 
+                                    
+                                    import paq
+                                    jl= paq.compress(jl)
+                                    #print(size_after)
+
+                                    
+                                        
+                                
+                                    size_after=len(jl)
+                                    #print(size_after)
                                    
                                     qqqwz=qqqwz+1
                                     szxzzza=""
@@ -488,7 +523,7 @@ class compression:
                     
                     
                     
-                    Deep_long=1290
+                    Deep_long=240
                     Deep_long_All=Deep_long*16
                     block_size_long=16
                     Times_compression=1
