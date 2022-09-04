@@ -1,7 +1,7 @@
 # Spring-131
 Spring-131
 
-Compression python software 
+Compression Python software 
 
 Author: Jurijus Pacalovas
 
