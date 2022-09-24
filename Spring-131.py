@@ -199,10 +199,12 @@ class compression:
                                     long2=len(size_data3)
                                     
                                     #ILIN
-                                    blocks=29
+                                    blocks=9#9 numbers 29 bits
                                     Number_Save=""            
                                     block=0  
                                     long=len(size_data3)
+                                    Minimum=999
+                                    B=0
                                     while block<long:
                                         ILIN=size_data3[block:block+blocks]
                                        
@@ -211,6 +213,17 @@ class compression:
                                         long5=len(Str_Ilin_Number_Save)
                                         
                                         
+                                        if Minimum>Number and Number>9:
+                                            Minimum=Number
+                                            B=B+1
+                                  
+                                        elif Minimum==Number and B>=1:
+                                            Str_Ilin_Number_Save="0"
+                                            #print(Number)
+                                            B=0
+                                        if Minimum==10:
+                                             Minimum=999
+                                             B=0
                                         str1=str(long5)
                                         #print(str1+Str_Ilin_Number_Save)
                                         Number_Save=Number_Save+str1+Str_Ilin_Number_Save
