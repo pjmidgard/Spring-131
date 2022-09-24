@@ -199,7 +199,7 @@ class compression:
                                     long2=len(size_data3)
                                     
                                     #ILIN
-                                    blocks=29#13 9999 2^13 4
+                                    blocks=29
                                     Number_Save=""            
                                     block=0  
                                     long=len(size_data3)
