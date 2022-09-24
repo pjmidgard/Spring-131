@@ -209,7 +209,7 @@ class compression:
                                         Number=int(ILIN,2)
                                         Str_Ilin_Number_Save=str(Number) 
                                         long5=len(Str_Ilin_Number_Save)
-                                        long5=long5-1
+                                        
                                         
                                         str1=str(long5)
                                         #print(str1+Str_Ilin_Number_Save)
@@ -217,8 +217,18 @@ class compression:
                                         block=block+blocks
                                     size_data12=Number_Save
                                     size_data11=bin(int(size_data12))[2:]
+                                    #print(size_data12)
                                     
-                                    size_data11="1"+size_data11
+                                    
+                                    
+                                    b=bin(long2)[2:]
+                                    #print(b)
+                                    long8=len(b)
+                                    #print(long8)
+                                    b1=format(long8,'08b')
+                                    
+                                    
+                                    size_data11="1"+b1+b+size_data11
                             
                                     lenf=len(size_data11)
                                         
@@ -233,8 +243,9 @@ class compression:
                                                                     
                                                                     
                                     size_data11=add_bits118+size_data11
-                                    b=format(long2,'048b')
-                                    size_data11=b+size_data11
+                                    
+                                    
+                                    size_data11=size_data11
              
                                                                                 
                                     n = int(size_data11, 2)
