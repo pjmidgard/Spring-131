@@ -218,20 +218,20 @@ class compression:
                                             str1=""
                                             Str_Ilin_Number_Save=ILIN
                                             N=Str_Ilin_Number_Save
-                                            #print(N)
+                                            #print(N)#1 0 or 1 1
                                         elif Number<100 and Number>29:
                                             str1=""
                                             N=str1+Str_Ilin_Number_Save
                                             N=int(N)
                                             N=format(N,'07b')
                                             #print(len(N))
-                                            #print(N)
+                                            #print(N)#000
                                         elif Number<30:
                                             str1="0"
                                             N=Str_Ilin_Number_Save
                                             N=int(N)
                                             N=format(N,'04b')
-                                            N="0000"+N
+                                            N="0000"+N#0000
                                             #print(N)
                                         
                                         
