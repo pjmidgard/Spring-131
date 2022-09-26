@@ -223,15 +223,26 @@ class compression:
                                             str1=""
                                             N=str1+Str_Ilin_Number_Save
                                             N=int(N)
-                                            N=format(N,'07b')
+                                            N=format(N,'07b')#0
+                                            
+                                            if N[0:2]=="00":
+                                                N=str1+Str_Ilin_Number_Save
+                                                N=int(N)
+                                                N=format(N,'07b')#00
+                                                #print(N)
+                                            else:
+                                                N=str1+Str_Ilin_Number_Save
+                                                N=int(N)
+                                                N=format(N,'08b')#0
+                                            
                                             #print(len(N))
                                             #print(N)#000
                                         elif Number<30:
                                             str1="0"
                                             N=Str_Ilin_Number_Save
                                             N=int(N)
-                                            N=format(N,'04b')
-                                            N="0000"+N#0000
+                                            N=format(N,'08b')#000
+                                            #000
                                             #print(N)
                                         
                                         
@@ -248,6 +259,7 @@ class compression:
                                     long8=len(b)
                                     #print(long8)
                                     b1=format(long8,'08b')
+                                    #print(len(size_data11))
                                     
                                     
                                     size_data11="1"+b1+b+size_data11
